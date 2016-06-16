@@ -1,0 +1,16 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="App.MyTheme" parent="Base.App.Theme">
+    </style>
+
+    <style name="Base.App.Theme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ButtonTheme">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+</resources>
