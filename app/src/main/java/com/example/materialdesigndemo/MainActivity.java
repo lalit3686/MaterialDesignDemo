@@ -12,21 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.firebase.client.AuthData;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements CustomOnItemClickListener, View.OnClickListener{
 
@@ -36,24 +31,43 @@ public class MainActivity extends AppCompatActivity implements CustomOnItemClick
     private FloatingActionButton fab, fab1;
     private BottomSheetBehavior mBottomSheetBehavior;
     private View bottom_sheet_layout;
+    private Firebase mFireBaseReference;
+    private String[] messages = new String[]{"Hi", "How are you?", "I am fine, thanks!", "What are you upto?",
+    "Firebase looks great isn't it", "Yeah, Firebase is awesome!"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_main);
+
+        mContext = this;
+
+        setUpFireBase();
+        initComponents();
+        addListeners();
+	}
+
+    private void setUpFireBase(){
         Firebase.setAndroidContext(this);
-        Firebase myFirebaseRef = new Firebase("https://lalit3686.firebaseio.com/");
-        myFirebaseRef.child("lalit").setValue("Do you have data? You'll love Firebase.");
-        myFirebaseRef.child("lalit").addValueEventListener(new ValueEventListener() {
+
+        mFireBaseReference = new Firebase("https://lalit3686.firebaseio.com/");
+        /*mFireBaseReference.child("chat").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
-                Toast.makeText(MainActivity.this, snapshot.getValue().toString(), Toast.LENGTH_LONG).show();
+                if(snapshot.getValue() == null){
+                    Toast.makeText(MainActivity.this, "No Chats", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    System.out.println(snapshot.getValue());
+                    Log.e("onDataChange", snapshot.getValue().toString());
+                    Toast.makeText(MainActivity.this, snapshot.getValue().toString(), Toast.LENGTH_LONG).show();
+                }
             }
             @Override public void onCancelled(FirebaseError error) { }
-        });
+        });*/
 
-        myFirebaseRef.createUser("bobtony@firebase.com", "correcthorsebatterystaple", new Firebase.ValueResultHandler<Map<String, Object>>() {
+        /*mFireBaseReference.createUser("bobtony@firebase.com", "correcthorsebatterystaple", new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
                 Log.e("createUser", "Successfully created user account with uid: " + result.get("uid"));
@@ -64,25 +78,17 @@ public class MainActivity extends AppCompatActivity implements CustomOnItemClick
             }
         });
 
-        myFirebaseRef.authWithPassword("bobtony@firebase.com", "correcthorsebatterystaple", new Firebase.AuthResultHandler() {
+        mFireBaseReference.authWithPassword("bobtony@firebase.com", "correcthorsebatterystaple", new Firebase.AuthResultHandler() {
             @Override
             public void onAuthenticated(AuthData authData) {
-                Log.e("authWithPassword","User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
+                Log.e("authWithPassword","Chat ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
             }
             @Override
             public void onAuthenticationError(FirebaseError firebaseError) {
                 Log.e("authWithPassword", firebaseError.getMessage());
             }
-        });
-
-
-        setContentView(R.layout.activity_main);
-
-        mContext = this;
-
-        initComponents();
-        addListeners();
-	}
+        });*/
+    }
 
     private void initComponents(){
 
@@ -159,12 +165,22 @@ public class MainActivity extends AppCompatActivity implements CustomOnItemClick
 
     @Override
     public void onClick(View v) {
+
+        Chat newChat;
+        Random random = new Random();
+
         switch (v.getId()){
             case R.id.fab:
+
+                newChat = new Chat(System.currentTimeMillis(), "lalit", messages[random.nextInt(6)]);
+                mFireBaseReference.child(String.valueOf(newChat.getCurrentTime())).setValue(newChat);
+
                 showSnackBar(v, "This is snack bar on AppBarLayout");
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 break;
             case R.id.fab1:
+                newChat = new Chat(System.currentTimeMillis(), "sameer", messages[random.nextInt(6)]);
+                mFireBaseReference.child(String.valueOf(newChat.getCurrentTime())).setValue(newChat);
                 showSnackBar(v, "This is snackbar on RecyclerView");
                 break;
         }
