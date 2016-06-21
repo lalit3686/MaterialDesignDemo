@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".BottomNavigationActivity"></activity>
+        <activity android:name=".NavigationDrawerActivity"></activity>
     </application>
 
 </manifest>

@@ -52,42 +52,6 @@ public class MainActivity extends AppCompatActivity implements CustomOnItemClick
         Firebase.setAndroidContext(this);
 
         mFireBaseReference = new Firebase("https://lalit3686.firebaseio.com/");
-        /*mFireBaseReference.child("chat").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if(snapshot.getValue() == null){
-                    Toast.makeText(MainActivity.this, "No Chats", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    System.out.println(snapshot.getValue());
-                    Log.e("onDataChange", snapshot.getValue().toString());
-                    Toast.makeText(MainActivity.this, snapshot.getValue().toString(), Toast.LENGTH_LONG).show();
-                }
-            }
-            @Override public void onCancelled(FirebaseError error) { }
-        });*/
-
-        /*mFireBaseReference.createUser("bobtony@firebase.com", "correcthorsebatterystaple", new Firebase.ValueResultHandler<Map<String, Object>>() {
-            @Override
-            public void onSuccess(Map<String, Object> result) {
-                Log.e("createUser", "Successfully created user account with uid: " + result.get("uid"));
-            }
-            @Override
-            public void onError(FirebaseError firebaseError) {
-                Log.e("createUser", firebaseError.getMessage());
-            }
-        });
-
-        mFireBaseReference.authWithPassword("bobtony@firebase.com", "correcthorsebatterystaple", new Firebase.AuthResultHandler() {
-            @Override
-            public void onAuthenticated(AuthData authData) {
-                Log.e("authWithPassword","Chat ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
-            }
-            @Override
-            public void onAuthenticationError(FirebaseError firebaseError) {
-                Log.e("authWithPassword", firebaseError.getMessage());
-            }
-        });*/
     }
 
     private void initComponents(){
@@ -156,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements CustomOnItemClick
     @Override
     public void onItemClick(View v, int position, Object value) {
         showToast("Item Clicked at position - "+position+" and value - "+value);
-        startActivity(new Intent(v.getContext(), BottomNavigationActivity.class));
+        startActivity(new Intent(v.getContext(), NavigationDrawerActivity.class));
     }
 
     public static void showToast(String message){
