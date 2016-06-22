@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".BottomNavigationActivity"></activity>
         <activity android:name=".NavigationDrawerActivity"></activity>
+        <activity android:name=".FireBaseChatActivity"></activity>
     </application>
 
 </manifest>

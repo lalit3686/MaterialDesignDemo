@@ -17,11 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements CustomOnItemClickListener, View.OnClickListener{
 
@@ -31,27 +28,27 @@ public class MainActivity extends AppCompatActivity implements CustomOnItemClick
     private FloatingActionButton fab, fab1;
     private BottomSheetBehavior mBottomSheetBehavior;
     private View bottom_sheet_layout;
-    private Firebase mFireBaseReference;
-    private String[] messages = new String[]{"Hi", "How are you?", "I am fine, thanks!", "What are you upto?",
-    "Firebase looks great isn't it", "Yeah, Firebase is awesome!"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+        setStatusBarTransparent();
+
         setContentView(R.layout.activity_main);
 
         mContext = this;
 
-        setUpFireBase();
         initComponents();
         addListeners();
 	}
 
-    private void setUpFireBase(){
-        Firebase.setAndroidContext(this);
-
-        mFireBaseReference = new Firebase("https://lalit3686.firebaseio.com/");
+    private void setStatusBarTransparent(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+        }
     }
 
     private void initComponents(){
@@ -71,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements CustomOnItemClick
 
         bottom_sheet_layout = findViewById(R.id.bottom_sheet_layout);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_layout);
+        mBottomSheetBehavior.setPeekHeight(100);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
     private void addListeners(){
@@ -129,23 +128,14 @@ public class MainActivity extends AppCompatActivity implements CustomOnItemClick
 
     @Override
     public void onClick(View v) {
-
-        Chat newChat;
-        Random random = new Random();
-
         switch (v.getId()){
             case R.id.fab:
-
-                newChat = new Chat(System.currentTimeMillis(), "lalit", messages[random.nextInt(6)]);
-                mFireBaseReference.child(String.valueOf(newChat.getCurrentTime())).setValue(newChat);
-
                 showSnackBar(v, "This is snack bar on AppBarLayout");
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 break;
             case R.id.fab1:
-                newChat = new Chat(System.currentTimeMillis(), "sameer", messages[random.nextInt(6)]);
-                mFireBaseReference.child(String.valueOf(newChat.getCurrentTime())).setValue(newChat);
                 showSnackBar(v, "This is snackbar on RecyclerView");
+                startActivity(new Intent(v.getContext(), FireBaseChatActivity.class));
                 break;
         }
     }

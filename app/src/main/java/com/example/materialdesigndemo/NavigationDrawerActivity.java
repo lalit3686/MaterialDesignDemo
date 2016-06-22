@@ -81,7 +81,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         navigationViewList = (ListView) findViewById(R.id.navigationViewList);
 
         View view = LayoutInflater.from(this).inflate(R.layout.navigation_drawer_header, null);
-        navigationViewList.addHeaderView(view);
+        navigationViewList.addHeaderView(view, null, false);
 
 
         mNavItems.add(new NavItem("Home", "Meetup destination", R.drawable.ic_discuss));
@@ -94,7 +94,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         navigationViewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 /**
                  * as we don't want to consider header as ListView 0th row
                  */

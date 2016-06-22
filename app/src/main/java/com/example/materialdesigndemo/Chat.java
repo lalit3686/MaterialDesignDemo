@@ -8,6 +8,10 @@ public class Chat {
     private String sender;
     private String message;
 
+    public Chat(){
+        // empty default constructor, necessary for Firebase to be able to deserialize blog posts
+    }
+
     public Chat(long currentTime, String sender, String message){
         this.currentTime = currentTime;
         this.sender = sender;
