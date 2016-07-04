@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements CustomOnItemClick
                 break;
             case R.id.fab1:
                 showSnackBar(v, "This is snackbar on RecyclerView");
-                startActivity(new Intent(v.getContext(), FireBaseChatActivity.class));
+                startActivity(new Intent(v.getContext(), TabLayoutActivity.class));
                 break;
         }
     }
