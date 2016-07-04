@@ -16,6 +16,7 @@
         app:menu="@menu/navigation_drawer_menu" />-->
 
     <ListView
+        android:fitsSystemWindows="true"
         android:id="@+id/navigationViewList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
