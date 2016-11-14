@@ -134,11 +134,7 @@ public class MainActivity extends AppCompatActivity implements CustomOnItemClick
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 break;
             case R.id.fab1:
-                showSnackBar(v, "This is snackbar on RecyclerView");
-<<<<<<< HEAD
-=======
                 startActivity(new Intent(v.getContext(), TabLayoutActivity.class));
->>>>>>> origin/master
                 break;
         }
     }
@@ -160,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements CustomOnItemClick
                 finish();
                 break;
             case R.id.menu_item_1:
-                Toast.makeText(this, item.getTitle(), Toast.LENGTH_LONG).show();
+                startActivity(new Intent(mContext, BottomNavigationActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

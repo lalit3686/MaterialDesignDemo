@@ -22,10 +22,7 @@
         </activity>
         <activity android:name=".BottomNavigationActivity"></activity>
         <activity android:name=".NavigationDrawerActivity"></activity>
-<<<<<<< HEAD
-=======
         <activity android:name=".TabLayoutActivity"></activity>
->>>>>>> origin/master
     </application>
 
 </manifest>
